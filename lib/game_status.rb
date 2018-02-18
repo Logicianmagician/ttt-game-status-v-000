@@ -19,31 +19,11 @@ WIN_COMBINATIONS =
 ]
 
 def won?(board)
-  WIN_COMBINATIONS.each do | win_combination |
-    win_index_1 = win_combination[0]
-    win_index_2 = win_combination[1]
-    win_index_3 = win_combination[2]
-
-    position_1 = board[win_index_1]
-    position_2 = board[win_index_2]
-    position_3 = board[win_index_3]
-
-    all_O = [position_1, position_2, position_3].all? do | element |
-      element == "O"
-    end
-    all_X = [position_1, position_2, position_3].all? do | element |
-          element == "X"
-    end
-    if all_O || all_X
-      return win_combination
-    end
-
-    #if (position_1 == "X" && position_2 == "X" && position_3 == "X") || (position_1== "O" && position_2 == "O" && position_3 == "O")
-    #  return win_combination
-    # end
+  WIN_COMBINATIONS.find do |combo|
+    board[combo[0]] == board[combo[1]] &&
+    board[combo[0]] == board[combo[2]] &&
+    position_taken?(board, combo[0])
   end
-  # return false if no winning combination found
-  return false
 end
 
 def full?(board)
